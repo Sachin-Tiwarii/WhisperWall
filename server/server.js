@@ -10,19 +10,16 @@ app.use(express.json());
 
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/confessions", require("./routes/confessionRoutes"));
+app.use("/api/admin", require("./routes/adminRoutes"));
+app.use("/api/reports", require("./routes/reportRoutes"));
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB Connected");
+
+    app.listen(5000, () => {
+      console.log("Server running on port 5000");
+    });
+  })
   .catch((err) => console.log(err));
-
-// Test route
-app.get("/", (req, res) => {
-  res.send("WhisperWall API Running");
-});
-
-const PORT = 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});

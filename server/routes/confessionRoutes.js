@@ -11,7 +11,11 @@ router.post("/", authMiddleware, async (req, res) => {
       user: req.user,
     });
 
-    res.status(201).json(confession);
+    const populated = await Confession.findById(confession._id)
+      .populate("user", "email")
+      .populate("comments.user", "email");
+
+    res.status(201).json(populated);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -20,6 +24,7 @@ router.post("/", authMiddleware, async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const confessions = await Confession.find()
+      .populate("user", "email")
       .populate("comments.user", "email")
       .sort({ createdAt: -1 });
 
@@ -50,7 +55,12 @@ router.put("/:id/like", authMiddleware, async (req, res) => {
     }
 
     await confession.save();
-    res.json(confession);
+
+    const updated = await Confession.findById(confession._id)
+      .populate("user", "email")
+      .populate("comments.user", "email");
+
+    res.json(updated);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -74,7 +84,12 @@ router.post("/:id/comment", authMiddleware, async (req, res) => {
     });
 
     await confession.save();
-    res.json(confession);
+
+    const updated = await Confession.findById(confession._id)
+      .populate("user", "email")
+      .populate("comments.user", "email");
+
+    res.json(updated);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -82,15 +97,13 @@ router.post("/:id/comment", authMiddleware, async (req, res) => {
 
 router.delete("/:confessionId/comment/:commentId", authMiddleware, async (req, res) => {
   try {
-    const { confessionId, commentId } = req.params;
-
-    const confession = await Confession.findById(confessionId);
+    const confession = await Confession.findById(req.params.confessionId);
 
     if (!confession) {
       return res.status(404).json({ message: "Confession not found" });
     }
 
-    const comment = confession.comments.id(commentId);
+    const comment = confession.comments.id(req.params.commentId);
 
     if (!comment) {
       return res.status(404).json({ message: "Comment not found" });
