@@ -3,13 +3,10 @@ import { Shield, Flame, Heart, ArrowRight } from "lucide-react";
 
 function Landing() {
   return (
-    <div className="bg-black text-white relative overflow-hidden md:h-screen">
+    <div className="bg-black text-white relative md:h-screen overflow-x-hidden">
 
-      {/* Animated Background Glow */}
       <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-purple-700 opacity-20 blur-3xl rounded-full animate-pulse pointer-events-none"></div>
-      <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-pink-600 opacity-20 blur-3xl rounded-full animate-pulse pointer-events-none"></div>
 
-      {/* Subtle Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-black to-pink-900/10 pointer-events-none"></div>
 
       <div className="relative z-10 flex flex-col md:h-screen">
@@ -53,7 +50,7 @@ function Landing() {
           </div>
         </div>
 
-        <div className="px-6 md:px-20 pb-8">
+        <div className="px-6 md:px-20 pt-12">
           <div className="grid md:grid-cols-3 gap-8">
 
             <div className="group bg-zinc-900/80 p-8 rounded-2xl border border-zinc-800 hover:border-purple-600 transition-all duration-300 shadow-xl hover:-translate-y-2 hover:shadow-purple-500/20">
@@ -81,17 +78,68 @@ function Landing() {
             </div>
 
           </div>
-            </div>
-
-        <div className="py-6 text-center border-t border-zinc-800">
-          <p className="text-zinc-500 text-sm tracking-wide">
-            © {new Date().getFullYear()} WhisperWall. Built with privacy in mind.
-            <span className="text-purple-500 font-medium ml-1 hover:text-purple-400 transition">
-              Crafted by Sachin
-            </span>
-          </p>
         </div>
 
+        <div className="border-t border-zinc-800 mt-40">
+          <div className="px-6 md:px-20 py-12 grid md:grid-cols-4 gap-10 text-sm">
+
+            <div>
+              <h3 className="text-lg font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-4">
+                WhisperWall
+              </h3>
+              <p className="text-zinc-400 leading-relaxed">
+                A safe digital space built for honest expression. Share your thoughts,
+                engage freely, and stay completely anonymous.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="text-white font-semibold mb-4">Platform</h4>
+              <ul className="space-y-2 text-zinc-400">
+                <li className="hover:text-purple-400 transition cursor-pointer">How It Works</li>
+                <li className="hover:text-purple-400 transition cursor-pointer">Trending</li>
+                <li className="hover:text-purple-400 transition cursor-pointer">Community Guidelines</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-white font-semibold mb-4">Legal</h4>
+              <ul className="space-y-2 text-zinc-400">
+                <li className="hover:text-purple-400 transition cursor-pointer">Privacy Policy</li>
+                <li className="hover:text-purple-400 transition cursor-pointer">Terms of Service</li>
+                <li className="hover:text-purple-400 transition cursor-pointer">Report Abuse</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-white font-semibold mb-4">Account</h4>
+              <ul className="space-y-2 text-zinc-400">
+                <li>
+                  <Link
+                    to="/register"
+                    className="hover:text-purple-400 transition"
+                  >
+                    Register
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/login"
+                    className="hover:text-purple-400 transition"
+                  >
+                    Login
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div className="text-center text-zinc-500 text-xs tracking-wide">
+            © {new Date().getFullYear()} WhisperWall. All rights reserved.
+            <span className="text-purple-500 font-medium ml-1 hover:text-purple-400 transition"> Crafted by Sachin </span>
+          </div>
+        </div>
       </div>
     </div>
   );
