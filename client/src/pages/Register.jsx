@@ -9,6 +9,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // added
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -91,12 +92,19 @@ function Register() {
         <div className="relative group">
           <Lock className="absolute top-3 left-3 text-zinc-500 group-focus-within:text-purple-500 transition" size={18} />
           <input
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             placeholder="Confirm Password"
-            className="w-full bg-black border border-zinc-700 rounded-xl p-3 pl-10 focus:ring-2 focus:ring-purple-600 outline-none transition"
+            className="w-full bg-black border border-zinc-700 rounded-xl p-3 pl-10 pr-10 focus:ring-2 focus:ring-purple-600 outline-none transition"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
+          <button
+            type="button"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            className="absolute top-3 right-3 text-zinc-500 hover:text-purple-400 transition"
+          >
+            {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
         </div>
 
         <button
