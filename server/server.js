@@ -5,9 +5,19 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+const cors = require("cors");
 
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://whisperwall-s.vercel.app"
+    ],
+    credentials: true,
+  })
+);
+app.use(express.json());
+ 
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/confessions", require("./routes/confessionRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
